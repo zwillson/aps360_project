@@ -179,7 +179,7 @@ def train(
                 break
 
     # ── Final evaluation on test set ──────────────────────────────────────
-    ckpt = torch.load(ckpt_path, map_location=device)
+    ckpt = torch.load(ckpt_path, map_location=device, weights_only=False)
     model.load_state_dict(ckpt["model_state"])
     print(f"\nLoaded best model from epoch {ckpt['epoch']}")
 

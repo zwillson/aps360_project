@@ -162,7 +162,7 @@ def _parse_gpa(val):
     Handles:
       '3.5 out of 4.0'  → 3.5/4.0 = 0.875
       '85%'             → 0.85
-      '3.5'             → heuristic (>4.0 → /100, else /4.0 or /5.0)
+      '3.5'             → heuristic: ≤4.0 → /4, ≤5.0 → /5, ≤10 → /10 (CGPA), >10 → /100
       NaN               → 0.5 (neutral imputation)
     """
     if pd.isna(val):
@@ -194,8 +194,8 @@ def _parse_gpa(val):
                 scores.append(v / 4.0)
             elif v <= 5.0:  # GPA out of 5
                 scores.append(v / 5.0)
-            else:
-                scores.append(min(v / 100.0, 1.0))
+            else:           # CGPA out of 10 (e.g. 6.7, 8, 9.35)
+                scores.append(min(v / 10.0, 1.0))
     if not scores:
         return 0.5
     return float(np.mean(scores))
