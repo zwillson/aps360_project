@@ -1,0 +1,45 @@
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.eggs/
+dist/
+build/
+.Python
+
+# ── Jupyter ───────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ── Virtual environments ───────────────────────────────────────────────────────
+venv/
+.venv/
+env/
+ENV/
+
+# ── Embeddings & feature cache (large binary, can be regenerated) ─────────────
+data/cache/
+
+# ── Trained model weights (large, regeneratable) ──────────────────────────────
+data/primary_model/best_model.pt
+data/baseline_rf.joblib
+
+# ── Generated plots ───────────────────────────────────────────────────────────
+data/*.png
+data/primary_model/*.png
+
+# ── macOS ─────────────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ── IDEs ──────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ── Misc ──────────────────────────────────────────────────────────────────────
+*.log
+*.tmp
