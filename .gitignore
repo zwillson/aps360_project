@@ -40,6 +40,9 @@ data/primary_model/*.png
 *.sublime-project
 *.sublime-workspace
 
+# ── Resume PDFs (private, not for upload) ─────────────────────────────────────
+resume_dataset/
+
 # ── Misc ──────────────────────────────────────────────────────────────────────
 *.log
 *.tmp

@@ -6,7 +6,7 @@ PyTorch Dataset for the RNN variant of ResumeMatchNet.
 Same branch structure as dataset.py, but replaces pre-computed SBERT
 embeddings with tokenised text sequences processed by a BiLSTM at train time.
 
-Branch 1:  77-dim  (15 numerical + one-hot categorical) — identical
+Branch 1:  55-dim  (15 numerical + one-hot categorical) — identical
 Branch 2:  3 × BiLSTM → 384-dim each  +  3 × Word2Vec 100-dim  =  1452-dim total
 """
 
@@ -17,6 +17,7 @@ import pandas as pd
 import torch
 from torch.utils.data import Dataset
 from torch.nn.utils.rnn import pad_sequence
+from gensim.models import Word2Vec as GensimWord2Vec
 
 from dataset import (
     NUMERICAL_COLS, CATEGORICAL_COLS, SBERT_TEXT_COLS, W2V_TEXT_COLS,
@@ -124,8 +125,7 @@ class RNNResumeDataset(Dataset):
             w2v_model = _train_word2vec(all_sentences, dim=W2V_DIM)
             w2v_model.save(w2v_model_path)
         else:
-            from gensim.models import Word2Vec
-            w2v_model = Word2Vec.load(w2v_model_path)
+            w2v_model = GensimWord2Vec.load(w2v_model_path)
             print(f"  Loaded Word2Vec from {w2v_model_path}")
 
         if fit or not os.path.exists(w2v_emb_path):
@@ -171,7 +171,7 @@ def rnn_collate_fn(batch):
     """
     Returns
     -------
-    branch1      : (B, 77)
+    branch1      : (B, 55)
     w2v          : (B, 300)
     text_career  : (padded_ids (B,T1), lengths (B,))
     text_resp    : (padded_ids (B,T2), lengths (B,))
